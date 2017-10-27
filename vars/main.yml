@@ -1,0 +1,10 @@
+---
+es_package_url: "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch"
+kibana_package_url: "https://artifacts.elastic.co/downloads/kibana"
+es_conf_dir: "/etc/elasticsearch"
+sysd_script: "/usr/lib/systemd/system/elasticsearch.service"
+init_script: "/etc/init.d/elasticsearch"
+#add supported features here
+supported_xpack_features: ["alerting","monitoring","graph","security"]
+es_home: "/usr/share/elasticsearch"
+default_file: "/etc/default/elasticsearch"

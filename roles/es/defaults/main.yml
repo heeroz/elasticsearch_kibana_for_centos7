@@ -1,0 +1,36 @@
+# set memroy or not
+es_set_memory: false
+
+# skip kernel parameters or not
+es_skip_kernel_parameters: true
+
+# set heap size
+es_init_heap_size: 'Xms2g'
+es_max_heap_size: 'Xmx2g'
+
+# set cluster name
+es_cluster_name: 'iot'
+
+# set data path
+es_data_path_list:
+  - '/elasticsearch'
+
+#Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+#es_minimum_master_nodes: 2
+es_minimum_master_nodes: 1
+
+# repo settings, use latest elasticsearch by apt install
+es_major_version: "5.x"
+es_version: "5.0.0"
+es_use_repository: false 
+es_yum_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+es_custom_package_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ es_version }}.rpm"
+
+
+# install master and datanode on the same node or not
+#es_master_datanode_separate: true
+es_master_datanode_separate: false
+
+# install xpack or not
+es_enable_xpack: false
+

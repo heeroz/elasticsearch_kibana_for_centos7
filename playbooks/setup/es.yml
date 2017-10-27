@@ -1,0 +1,11 @@
+- hosts: es_masters
+  roles:
+    - es_master
+
+- hosts: es_datanodes
+  roles:
+    - es_datanode
+
+- hosts: es_servers
+  roles:
+    - es

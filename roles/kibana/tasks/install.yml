@@ -1,0 +1,13 @@
+- name: install kibana package
+  yum: name={{ item }} state=installed
+  with_items:
+  - kibana
+  when: kibana_use_repository
+
+- name: download kibana package from url
+  get_url: url={% if kibana_custom_package_url is defined %}{{ kibana_custom_package_url }}{% else %}{{ kibana_package_url }}-{{ kibana_version }}.rpm{% endif %} dest=/tmp/kibana-{{ kibana_version }}.rpm validate_certs=no
+  when: not kibana_use_repository
+
+- name: CentOS7 - Ensure kibana is installed from downloaded package
+  yum: name=/tmp/kibana-{{ kibana_version }}.rpm state=installed
+  when: not kibana_use_repository

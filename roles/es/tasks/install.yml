@@ -1,0 +1,22 @@
+- set_fact: force_install=no
+
+- name: CentOS7 - Add Elasticsearch repository key
+  command: rpm --import {{ es_yum_key }}
+  
+- name: CentOS7 - Add elasticsearch repository
+  copy: src=elasticsearch_repo.j2 dest=/etc/yum.d/
+  when: es_use_repository
+
+- name: CentOS7 - Ensure elasticsearch is installed
+  yum: name=elasticsearch{% if es_version is defined and es_version != "" %}={{ es_version }}{% endif %} state=present force={{force_install}} cache_valid_time=86400
+  when: es_use_repository
+  register: CentOS7_elasticsearch_install_from_repo
+
+- name: CentOS7 - Download elasticsearch from url
+  get_url: url={% if es_custom_package_url is defined %}{{ es_custom_package_url }}{% else %}{{ es_package_url }}-{{ es_version }}.rpm{% endif %} dest=/tmp/elasticsearch-{{ es_version }}.rpm validate_certs=no
+  when: not es_use_repository
+
+- name: CentOS7 - Ensure elasticsearch is installed from downloaded package
+  yum: name=/tmp/elasticsearch-{{ es_version }}.rpm state=installed
+  when: not es_use_repository
+  register: elasticsearch_install_from_package

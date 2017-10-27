@@ -1,0 +1,14 @@
+# install
+- include: install.yml tags=install,common
+
+# config
+- include: config.yml tags=config,common
+
+# service
+#- include: service.yml tags=service,common
+
+# selinux
+#- include: selinux.yml tags=selinux,common
+
+# firewalld
+- include: service_centos7.yml tags=firewalld,common

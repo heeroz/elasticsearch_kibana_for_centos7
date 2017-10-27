@@ -1,0 +1,2 @@
+- name: start_ntpd
+  systemd: name=ntp state=started enabled=yes

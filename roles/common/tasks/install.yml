@@ -1,0 +1,26 @@
+- name: install_common_softwares
+  yum: name={{ item }} state=installed update_cache=yes
+  with_items:
+    - vim
+    - zip
+    - unzip
+    - man
+    - wget
+    - ntp
+    - git
+    - ant
+    - ibus-kkc
+    - vlgothic-*
+    - glibc-common
+    - man-db
+    - sysstat
+    - lsof
+    - parted
+    - iotop
+    - curl
+    - xfsprogs
+    - sudo
+    - libselinux-python
+    - net-tools
+
+

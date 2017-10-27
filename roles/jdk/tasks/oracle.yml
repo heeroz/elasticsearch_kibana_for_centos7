@@ -1,0 +1,19 @@
+---
+- name: check jdk installed
+  yum: 
+   list: jdk
+  register: check_jdk_installed
+
+- name: download Oracle JDK 8
+  get_url: 
+   url: http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-x64.rpm 
+   dest: /tmp/jdk-8u152-linux-x64.rpm
+   headers: 'Cookie: oraclelicense=accept-securebackup-cookie'
+   validate_certs: no 
+   owner: root
+   group: root
+   mode: 744 
+
+- name: install JDK 8 from a local file
+  yum: state=installed name=/tmp/jdk-8u152-linux-x64.rpm
+

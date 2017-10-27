@@ -1,0 +1,4 @@
+- name: Copy Datanode Configuration File
+  template: src=elasticsearch.yml.datanode.j2 dest=/etc/elasticsearch/elasticsearch.yml owner=elasticsearch group=elasticsearch mode=0644 force=yes
+  when: es_master_datanode_separate
+

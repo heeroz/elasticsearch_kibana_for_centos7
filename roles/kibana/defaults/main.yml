@@ -1,0 +1,3 @@
+kibana_version: "5.0.0"
+kibana_use_repository: false
+kibana_custom_package_url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-x86_64.rpm"

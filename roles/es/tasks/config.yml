@@ -1,0 +1,28 @@
+- name: remove_elasticsearch_data_dir
+  file: path={{ item }} state=absent force=yes
+  with_items:
+      - '{{ es_data_path_list }}'
+
+- name: make_elasticsearch_data_dir
+  file: path={{ item }} state=directory owner=elasticsearch group=elasticsearch mode=755
+  with_items: 
+      - '{{ es_data_path_list }}'
+
+- name: Copy Configuration File
+  template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml owner=elasticsearch group=elasticsearch mode=0644 force=yes
+  when: not es_master_datanode_separate
+
+- name: Copy default File
+  template: src=elasticsearch.j2 dest=/etc/default/elasticsearch owner=elasticsearch group=elasticsearch mode=0644 force=yes
+
+- name: Copy System File
+  template: src=sysctl.conf.j2 dest=/etc/sysctl.conf owner=root group=root mode=0644 force=yes
+  when: es_set_memory
+
+- name: Set System parameters
+  shell: sysctl -w vm.max_map_count=262144 && sysctl -p
+  when: es_set_memory
+
+- name: restart elasticsearch
+  service: name=elasticsearch state=restarted enabled=yes
+  ignore_errors: yes
